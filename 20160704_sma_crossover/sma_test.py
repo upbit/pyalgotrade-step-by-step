@@ -85,9 +85,10 @@ class SMACrossOverEx(strategy.BacktestingStrategy):
             self.__position.exitMarket()
 
 def main(plot):
+    use_ex = True
+
     instrument = "tcehy"
     feed = yahoofinance.build_feed([instrument], 2015, 2016, ".")
-    use_ex = False
 
     if (use_ex):
         strat = SMACrossOverEx(feed, instrument)
