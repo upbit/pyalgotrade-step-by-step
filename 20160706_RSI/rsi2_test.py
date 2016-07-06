@@ -116,6 +116,8 @@ def main(plot):
         plt.getOrCreateSubplot("rsi").addLine("Oversold", overSoldThreshold)
 
     strat.run()
+    strat.info("Final portfolio value: $%.2f" % strat.getResult())
+
     print "Sharpe ratio: %.2f" % sharpeRatioAnalyzer.getSharpeRatio(0.05)
 
     if plot:
