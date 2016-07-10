@@ -1,1 +1,1 @@
-# [请点击 WIKI 开始阅读](https://github.com/upbit/pyalgotrade-step-by-step/wiki)
+# [PyAlgoTrade学习笔记](https://github.com/upbit/pyalgotrade-step-by-step/wiki) <-- 请点击WIKI开始阅读
