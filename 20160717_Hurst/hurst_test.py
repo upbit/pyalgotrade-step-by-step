@@ -4,7 +4,6 @@ from pyalgotrade import strategy
 from pyalgotrade.technical import hurst
 
 from pyalgotrade import plotter
-from pyalgotrade.tools import googlefinance
 from pyalgotrade.tools import yahoofinance
 from pyalgotrade.stratanalyzer import sharpe
 from pyalgotrade.stratanalyzer import returns
@@ -43,22 +42,13 @@ class HurstBasedStrategy(strategy.BacktestingStrategy):
         self.__position.exitMarket()
 
     def onBars(self, bars):
-        # If a position was not opened, check if we should enter a long position.
         pass
-        # if self.__position is None:
-        #     if self.getZScoreValue() > self.__zscore_overbought:
-        #         shares = int(self.getBroker().getCash() * 0.9 / bars[self.__instrument].getPrice())
-        #         # Enter a buy market order. The order is good till canceled.
-        #         self.__position = self.enterLong(self.__instrument, shares, True)
-        # # Check if we have to exit the position.
-        # elif not self.__position.exitActive() and self.getZScoreValue() < self.__zscore_oversold:
-        #     self.__position.exitMarket()
 
 def main(plot):
-    instrument = "000300"   # 沪深300
-    feed = googlefinance.build_feed([instrument], 2012, 2016, ".")
+    instrument = "000300.ss"
+    feed = yahoofinance.build_feed([instrument], 2013, 2015, ".")
 
-    period = 200
+    period = 100
     strat = HurstBasedStrategy(feed, instrument, period)
 
     sharpeRatioAnalyzer = sharpe.SharpeRatio()
@@ -75,7 +65,7 @@ def main(plot):
         plt.getOrCreateSubplot("hurst").addLine("random", 0.5)
 
         # Plot the simple returns on each bar.
-        plt.getOrCreateSubplot("returns").addDataSeries("Simple returns", returnsAnalyzer.getReturns())
+        # plt.getOrCreateSubplot("returns").addDataSeries("Simple returns", returnsAnalyzer.getReturns())
 
     strat.run()
     strat.info("Final portfolio value: $%.2f" % strat.getResult())
